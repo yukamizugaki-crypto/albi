@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>albi... | 安心して食べられる焼きドーナツ</title>
+    <meta name="description" content="小さなお子さまからご年配の方まで安心して食べられる、平塚市の焼きドーナツ専門店「albi...」。油で揚げないヘルシーなドーナツで、日常にちょっとした幸せをお届けします。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-bg: #fdfbf7;
+            --color-bg-alt: #fff0f2;
+            --color-text: #5c4b43;
+            --color-primary: #e29598;
+            --color-primary-hover: #d27c82;
+            --color-secondary: #8c7a6b;
+            --color-white: #ffffff;
+            --color-placeholder: #e0e0e0;
+            --color-placeholder-dark: #b0b0b0;
+            --font-main: 'Zen Maru Gothic', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            line-height: 1.8;
+            font-size: 16px;
+            letter-spacing: 0.05em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--color-primary);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .bg-alt {
+            background-color: var(--color-bg-alt);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 50px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: var(--color-primary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            padding: 0 30px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-secondary);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mobile-ig {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            transition: var(--transition);
+        }
+
+        .mobile-ig:hover {
+            color: var(--color-primary-hover);
+        }
+
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--color-primary);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0;
+        }
+
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background-color: var(--color-bg);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: slideFade 10s infinite;
+        }
+
+        .slide:nth-child(1) { animation-delay: 0s; }
+        .slide:nth-child(2) { animation-delay: 5s; }
+
+        @keyframes slideFade {
+            0% { opacity: 0; transform: scale(1); }
+            10% { opacity: 1; }
+            50% { opacity: 1; }
+            60% { opacity: 0; transform: scale(1.05); }
+            100% { opacity: 0; transform: scale(1.05); }
+        }
+
+        .hero-content {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 90%;
+        }
+
+        .hero-logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            letter-spacing: 0.15em;
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 2;
+        }
+
+        /* Concept Section */
+        .concept-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .concept-lead {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 40px;
+            line-height: 2;
+        }
+
+        .concept-body {
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .concept-body p {
+            margin-bottom: 20px;
+        }
+
+        .concept-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .concept-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 768px) {
+            .concept-images {
+                gap: 10px;
+            }
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 10px 5px 30px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-primary) rgba(0,0,0,0.05);
+        }
+
+        .features-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .features-grid::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+        
+        .features-grid::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 4px;
+        }
+
+        .feature-card {
+            background-color: var(--color-white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 350px;
+            scroll-snap-align: start;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-num {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-white);
+            background-color: var(--color-primary);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--color-text);
+            border-bottom: 2px dashed var(--color-bg-alt);
+            padding-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--color-primary);
+            font-size: 0.8rem;
+        }
+
+        .feature-footer {
+            margin-top: auto;
+            font-weight: 700;
+            color: var(--color-primary);
+            font-size: 0.95rem;
+        }
+
+        /* Message Section */
+        #message {
+            text-align: center;
+            padding: 100px 0;
+            background-color: var(--color-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-text {
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 2.2;
+            position: relative;
+            z-index: 1;
+        }
+
+        .message-text p {
+            margin-bottom: 30px;
+        }
+
+        /* Store Info Section */
+        .info-container {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: var(--color-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .info-details {
+            flex: 1;
+            min-width: 300px;
+            padding: 50px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table th, .info-table td {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            vertical-align: top;
+        }
+
+        .info-table th {
+            text-align: left;
+            width: 100px;
+            font-weight: 500;
+            color: var(--color-secondary);
+        }
+
+        .reservation-box {
+            margin-top: 30px;
+            background-color: var(--color-bg-alt);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .reservation-box p {
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .phone-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-text);
+            display: inline-block;
+        }
+
+        .phone-number i {
+            margin-right: 10px;
+            color: var(--color-primary);
+        }
+
+        .info-map {
+            flex: 1;
+            min-width: 300px;
+            min-height: 300px;
+        }
+
+        .info-map iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-text);
+            color: var(--color-white);
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+            display: inline-block;
+        }
+
+        .footer-sns {
+            margin-bottom: 40px;
+        }
+
+        .footer-sns a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            color: var(--color-white);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-sns a:hover {
+            background-color: var(--color-primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 35px;
+            }
+            .concept-body {
+                font-size: 0.95rem;
+            }
+            .phone-number {
+                font-size: 1.5rem;
+            }
+            .footer-logo {
+                font-size: 1.6rem;
+            }
+            .header-inner {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(253, 251, 247, 0.98);
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: clip-path 0.3s ease-in-out;
+            }
+
+            .nav-links.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 20px 0;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(7px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-7px) rotate(-45deg);
+            }
+
+            .mobile-ig {
+                display: block;
+            }
+
+            .hero-content {
+                padding: 20px 15px;
+                max-width: 85%;
+            }
+
+            .hero-logo {
+                font-size: 2.2rem;
+            }
+
+            .hero-text {
+                font-size: 0.95rem;
+                line-height: 1.8;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .concept-lead {
+                font-size: 1.1rem;
+            }
+
+            .features-grid {
+                gap: 15px;
+                padding-bottom: 20px;
+            }
+
+            .feature-card {
+                flex: 0 0 85%;
+                padding: 30px 20px;
+            }
+
+            .feature-num {
+                width: 25px;
+                height: 25px;
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            .feature-title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            .feature-desc {
+                font-size: 0.85rem;
+                margin-bottom: 10px;
+            }
+
+            .feature-list li {
+                font-size: 0.85rem;
+                margin-bottom: 5px;
+            }
+
+            .feature-footer {
+                font-size: 0.85rem;
+            }
+
+            .info-details {
+                padding: 30px 20px;
+            }
+
+            .info-table th {
+                display: block;
+                width: 100%;
+                padding-bottom: 5px;
+                border-bottom: none;
+            }
+
+            .info-table td {
+                display: block;
+                width: 100%;
+                padding-top: 0;
+            }
+
+            .message-text {
+                font-size: 1.05rem;
+                line-height: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="header-inner container">
+            <a href="#" class="logo">albi...</a>
+            <div class="header-right">
+                <a href="https://www.instagram.com/sweets_shop_albi/" target="_blank" class="mobile-ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <button class="hamburger" id="hamburger" aria-label="メニュー">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#concept">コンセプト</a></li>
+                <li><a href="#features">こだわり</a></li>
+                <li><a href="#info">店舗情報</a></li>
+                <li><a href="https://www.instagram.com/sweets_shop_albi/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-slideshow">
+                <div class="slide" style="background-image: url('hero1.png');"></div>
+                <div class="slide" style="background-image: url('hero2.png');"></div>
+            </div>
+            <div class="hero-content fade-in">
+                <h1 class="hero-logo">albi...</h1>
+                <p class="hero-text">
+                    甘いものは特別な日だけじゃなくていい。<br>
+                    毎日の中に、ちょっとした幸せを。
+                </p>
+            </div>
+        </section>
+
+        <!-- Concept Section -->
+        <section id="concept" class="section">
+            <div class="container">
+                <h2 class="section-title fade-in">Concept</h2>
+                <div class="concept-wrapper">
+                    <p class="concept-lead fade-in">
+                        小さなお子さまからご年配の方まで<br>
+                        “安心して食べられるドーナツ”
+                    </p>
+                    <div class="concept-body fade-in">
+                        <p>
+                            albi...のドーナツは、一般的なドーナツとは違い<br>
+                            油で揚げずに焼き上げる「焼きドーナツ」。
+                        </p>
+                        <p>
+                            重たくなりがちなスイーツではなく、<br>
+                            やさしい口あたりと軽い食感を大切にしています。
+                        </p>
+                        <p>
+                            甘いものを控えている方でも、<br>
+                            家族みんなで楽しめるドーナツを目指しました。
+                        </p>
+                    </div>
+                    <div class="concept-images fade-in">
+                        <img src="menu1.jpg" alt="焼きドーナツ1" class="concept-img">
+                        <img src="menu2.png" alt="焼きドーナツ2" class="concept-img">
+                        <img src="menu3.png" alt="焼きドーナツ3" class="concept-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section bg-alt">
+            <div class="container">
+                <h2 class="section-title fade-in">お店の強み</h2>
+                <div class="features-grid">
+                    <!-- Feature 1 -->
+                    <div class="feature-card fade-in">
+                        <div class="feature-num">1</div>
+                        <h3 class="feature-title">油で揚げないヘルシードーナツ</h3>
+                        <p class="feature-desc">
+                            通常のドーナツのような油の重さがなく、おやつ・朝食・手土産にも最適。
+                        </p>
+                        <ul class="feature-list">
+                            <li>胃もたれしにくい</li>
+                            <li>子どもにも食べやすい</li>
+                            <li>年配の方にもやさしい</li>
+                        </ul>
+                        <p class="feature-footer">“罪悪感なく食べられるスイーツ”がコンセプトです。</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-card fade-in" style="transition-delay: 0.1s;">
+                        <div class="feature-num">2</div>
+                        <h3 class="feature-title">毎日食べられるやさしい味</h3>
+                        <p class="feature-desc">
+                            素材の味を大切にした、甘すぎないシンプルな美味しさ。
+                        </p>
+                        <p class="feature-desc">
+                            派手さよりも「また食べたくなる」味を重視しています。
+                        </p>
+                        <p class="feature-footer">日常に寄り添うドーナツです。</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card fade-in" style="transition-delay: 0.2s;">
+                        <div class="feature-num">3</div>
+                        <h3 class="feature-title">幅広い世代に愛される理由</h3>
+                        <p class="feature-desc">お客様の多くが</p>
+                        <ul class="feature-list">
+                            <li>小さなお子様連れのご家族</li>
+                            <li>学生</li>
+                            <li>ご年配の方</li>
+                        </ul>
+                        <p class="feature-footer">“誰でも食べられる”を本気で考えた結果、世代を問わないスイーツになりました。</p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-card fade-in" style="transition-delay: 0.3s;">
+                        <div class="feature-num">4</div>
+                        <h3 class="feature-title">手土産・差し入れに選ばれる</h3>
+                        <p class="feature-desc">軽くて食べやすく、好みが分かれにくい。</p>
+                        <ul class="feature-list">
+                            <li>会社への差し入れ</li>
+                            <li>お子様のおやつ</li>
+                            <li>ご家族へのお土産</li>
+                        </ul>
+                        <p class="feature-footer">「ちょうどいい」スイーツとして選ばれています。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Message Section -->
+        <section id="message" class="section">
+            <div class="container">
+                <div class="message-text fade-in">
+                    <p>甘いものは特別な日だけじゃなくていい。<br>毎日の中に、ちょっとした幸せを。</p>
+                    <p>albi...は、<br>日常に寄り添うドーナツ屋です。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Store Info Section -->
+        <section id="info" class="section bg-alt">
+            <div class="container">
+                <h2 class="section-title fade-in">店舗情報</h2>
+                <div class="info-container fade-in">
+                    <div class="info-details">
+                        <table class="info-table">
+                            <tbody>
+                                <tr>
+                                    <th>正式名称</th>
+                                    <td>albi...</td>
+                                </tr>
+                                <tr>
+                                    <th>所在地</th>
+                                    <td>〒254-0061<br>神奈川県平塚市御殿4-2-26-1</td>
+                                </tr>
+                                <tr>
+                                    <th>営業時間</th>
+                                    <td>
+                                        月・木・土<br>11:00〜18:00<br>
+                                        <span style="font-size: 0.9em; display: inline-block; margin-top: 5px;">詳しくは<a href="https://www.instagram.com/sweets_shop_albi/" target="_blank" style="text-decoration: underline; color: var(--color-primary);">Instagram</a>をご確認ください。</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>定休日</th>
+                                    <td>火・水・金・日</td>
+                                </tr>
+                                <tr>
+                                    <th>アクセス</th>
+                                    <td>JR平塚駅より、バスで20分<br>「大縄橋」下車 徒歩7分</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="reservation-box">
+                            <p>ご予約はお電話にて承っております</p>
+                            <a href="tel:0463451425" class="phone-number"><i class="fas fa-phone-alt"></i> 0463-45-1425</a>
+                        </div>
+                    </div>
+                    <!-- Google Maps -->
+                    <div class="info-map">
+                        <iframe src="https://maps.google.co.jp/maps?output=embed&q=albi...%20平塚" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="#" class="footer-logo">albi...</a>
+            <div class="footer-sns">
+                <a href="https://www.instagram.com/sweets_shop_albi/" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <p class="copyright">&copy; albi... All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
